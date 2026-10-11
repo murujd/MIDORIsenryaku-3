@@ -1586,9 +1586,9 @@
   };
   document.getElementById('closeAddSchedModal').onclick = ()=>{ document.getElementById('addSchedModalBg').classList.remove('active'); };
   document.getElementById('closePostModal').onclick = ()=>{ postModalBg.classList.remove('active'); };
-  document.querySelectorAll('.type-choice button').forEach(b=>{
+  document.querySelectorAll('#postModalBg .type-choice button').forEach(b=>{
     b.onclick = ()=>{
-      document.querySelectorAll('.type-choice button').forEach(x=>x.classList.remove('sel'));
+      document.querySelectorAll('#postModalBg .type-choice button').forEach(x=>x.classList.remove('sel'));
       b.classList.add('sel');
       postType = b.dataset.t;
       document.getElementById('typeHint').textContent = typeHints[postType];
