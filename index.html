@@ -6,53 +6,12 @@
 <title>堺市 みんなの農業ひろば</title>
 
 <!--
-
-  【ログイン機能について】
-   このサイトはSupabaseの「Authentication」機能を使ったログインを備えています。
-   Supabaseプロジェクトを作成すると、メール・パスワードでのログインは最初から使える状態になっています。
-   デフォルトでは、新規登録時に確認メールが届く設定になっています。
-   すぐに試したい場合は、左メニューの「Authentication」→「Providers」→「Email」で
-   「Confirm email」をオフにすると、確認メールなしでそのまま使えるようになります（あとで戻せます）。
-
-  【管理者の設定（不適切な投稿を削除できる人）】
+【管理者の設定（不適切な投稿を削除できる人）】
    1. 管理者にしたい人が、先に通常どおり新規登録しておく
    2. Supabaseの「SQL Editor」で、下のSQLのメールアドレスを書き換えて実行する
         update auth.users
         set raw_app_meta_data = coalesce(raw_app_meta_data, '{}'::jsonb) || '{"role":"admin"}'::jsonb
         where email = 'kanrisha@example.com';
-   3. その人が一度ログアウトして、もう一度ログインする
-      → 画面上部の名前の横に「（管理者）」と出て、他の人の投稿・回答・広告に
-        「削除（管理者）」ボタンが表示されます（一般の利用者には表示されません）
-   ※ この「role」は利用者本人が画面や設定から書き換えることはできません。
-   ※ 管理者を外すときは、上のSQLの代わりに次を実行します。
-        update auth.users set raw_app_meta_data = raw_app_meta_data - 'role' where email = 'kanrisha@example.com';
-   ※ 注意：上の【Supabaseの手順】でデータベースのルールを設定していれば、
-      「ログインしていない人」からの書き換えは防げます。ただし、削除ボタンの出し分け自体は
-      画面（アプリ）側の仕組みのため、ログイン済みの技術に詳しい人が専用の方法で直接データを
-      操作すること（自分以外の投稿を消すなど）までは、完全には防げません。より厳密にしたい
-      場合は、投稿を1件ずつ別々の行として保存し、削除にも権限チェックを行う作りに変更する
-      必要があります（ご希望であれば対応します）。
-
-  【Cloudinary（写真・動画の保存）の手順】
-   クレジットカードの登録は不要です。Supabase Storageの無料枠（1GB）より大きく無料で使えるよう、
-   Cloudinary（25GB相当／月の無料枠）に変更しました。
-   1. https://cloudinary.com/users/register_free で無料アカウントを作成する
-   2. ログイン後の画面（Dashboard）に表示されている「Cloud name」を控えておく
-   3. 左メニューの「Settings」（歯車アイコン）→「Upload」タブを開く
-   4. 「Upload presets」の「Add upload preset」を押し、
-       ・Signing Mode を「Unsigned」にする（これが重要です）
-       ・Preset name を控えておく（例：sakai_uploads）
-      を設定して保存する
-   5. 控えた「Cloud name」と「Preset name」を、下の設定欄にコピーする
-
-   これで設定は完了です。Cloudflare WorkerのようなサーバーやSupabase Storageのバケット作成は
-   不要です（ブラウザから直接Cloudinaryにアップロードします）。
-
-   ※ 無料枠（25クレジット／月。1クレジット＝保存1GB、または通信1GB）を超えると、
-     その月はアップロードや表示が一時的にできなくなることがあります（翌月になれば元に戻ります）。
-     それでも、Supabase Storageの1GBよりかなり多くの写真・動画を無料で保存できます。
-
-  設定を入れるまでは、この端末だけに保存する簡易モードで動作します。
 -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
